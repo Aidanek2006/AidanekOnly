@@ -16,13 +16,6 @@ class UserProfile(AbstractUser):
         return self.username
 
 
-class Category(models.Model):
-    category_name = models.CharField(max_length=16, unique=True)
-
-    def __str__(self):
-        return self.category_name
-
-
 class Marka(models.Model):
     marka_name = models.CharField(max_length=16, unique=True)
 
@@ -39,9 +32,8 @@ class Model(models.Model):
 
 class Car(models.Model):
     car_name = models.CharField(max_length=16)
-    marka = models.CharField(max_length=16)
-    model = models.CharField(max_length=16)
-    category = models.CharField(max_length=32)
+    marka = models.ForeignKey(Marka, on_delete=models.CASCADE)
+    model = models.ForeignKey(Model, on_delete=models.CASCADE)
     price = models.PositiveIntegerField(default=0, null=True, blank=True)
     description = models.TextField(null=True,blank=True)
     year = models.DateField(auto_now_add=True)
